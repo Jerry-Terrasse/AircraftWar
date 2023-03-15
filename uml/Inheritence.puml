@@ -1,0 +1,89 @@
+@startuml
+class edu.hitsz.bullet.HeroBullet {
+}
+abstract class edu.hitsz.aircraft.AbstractAircraft {
+# int maxHp
+# int hp
++ void decreaseHp(int)
++ void increaseHp(int)
++ int getHp()
++ {abstract}List<BaseBullet> shoot()
++ List<BaseSupply> produceSupply()
+}
+class edu.hitsz.aircraft.MobEnemy {
++ void forward()
++ List<BaseBullet> shoot()
+}
+class edu.hitsz.aircraft.EliteEnemy {
+- int bulletPower
+- int direction
+- {static} double probability
+~ {static} int supply_type
++ {static} double getProbability()
++ List<BaseBullet> shoot()
++ List<BaseSupply> produceSupply()
+}
+class edu.hitsz.bullet.EnemyBullet {
+}
+class edu.hitsz.supply.FireSupply {
++ void takeEffect(WorldHandle)
+}
+abstract class edu.hitsz.basic.AbstractFlyingObject {
+# int locationX
+# int locationY
+# int speedX
+# int speedY
+# BufferedImage image
+# int width
+# int height
+# boolean isValid
++ void forward()
++ boolean crash(AbstractFlyingObject)
++ int getLocationX()
++ int getLocationY()
++ void setLocation(double,double)
++ int getSpeedY()
++ BufferedImage getImage()
++ int getWidth()
++ int getHeight()
++ boolean notValid()
++ void vanish()
+}
+class edu.hitsz.aircraft.HeroAircraft {
+- int shootNum
+- int power
+- int direction
++ void forward()
++ List<BaseBullet> shoot()
++ void increaseShootNum()
+}
+class edu.hitsz.supply.BombSupply {
++ void takeEffect(WorldHandle)
+}
+abstract class edu.hitsz.supply.BaseSupply {
++ void forward()
++ void takeEffect(WorldHandle)
+}
+class edu.hitsz.supply.HpSupply {
+- int increase
++ void takeEffect(WorldHandle)
+}
+class edu.hitsz.bullet.BaseBullet {
+- int power
++ void forward()
++ int getPower()
+}
+
+
+edu.hitsz.bullet.BaseBullet <|-- edu.hitsz.bullet.HeroBullet
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.aircraft.AbstractAircraft
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.MobEnemy
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.EliteEnemy
+edu.hitsz.bullet.BaseBullet <|-- edu.hitsz.bullet.EnemyBullet
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.FireSupply
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.HeroAircraft
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.BombSupply
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.supply.BaseSupply
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.HpSupply
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.bullet.BaseBullet
+@enduml
