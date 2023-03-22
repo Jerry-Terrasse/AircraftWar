@@ -1,0 +1,43 @@
+@startuml
+class edu.hitsz.supply.BombSupplyFactory {
+- {static} BombSupplyFactory instance
++ {static} BombSupplyFactory getInstance()
++ BaseSupply createSupply(int,int,int,int)
+}
+class edu.hitsz.supply.FireSupplyFactory {
+- {static} FireSupplyFactory instance
++ {static} FireSupplyFactory getInstance()
++ BaseSupply createSupply(int,int,int,int)
+}
+class edu.hitsz.supply.FireSupply {
++ void takeEffect(WorldHandle)
+}
+class edu.hitsz.supply.HpSupplyFactory {
+- {static} HpSupplyFactory instance
++ {static} HpSupplyFactory getInstance()
++ BaseSupply createSupply(int,int,int,int)
+}
+class edu.hitsz.supply.BombSupply {
++ void takeEffect(WorldHandle)
+}
+abstract class edu.hitsz.supply.BaseSupply {
++ void forward()
++ void takeEffect(WorldHandle)
+}
+class edu.hitsz.supply.HpSupply {
+- int increase
++ void takeEffect(WorldHandle)
+}
+interface edu.hitsz.supply.SupplyFactory {
+~ BaseSupply createSupply(int,int,int,int)
+}
+
+
+edu.hitsz.supply.SupplyFactory <|.. edu.hitsz.supply.BombSupplyFactory
+edu.hitsz.supply.SupplyFactory <|.. edu.hitsz.supply.FireSupplyFactory
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.FireSupply
+edu.hitsz.supply.SupplyFactory <|.. edu.hitsz.supply.HpSupplyFactory
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.BombSupply
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.supply.BaseSupply
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.HpSupply
+@enduml

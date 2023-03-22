@@ -1,0 +1,43 @@
+@startuml
+abstract class edu.hitsz.aircraft.AbstractAircraft {
+# int maxHp
+# int hp
++ void decreaseHp(int)
++ void increaseHp(int)
++ int getHp()
++ {abstract}List<BaseBullet> shoot()
++ List<BaseSupply> produceSupply()
+}
+class edu.hitsz.aircraft.MobEnemy {
++ void forward()
++ List<BaseBullet> shoot()
+}
+class edu.hitsz.aircraft.EliteEnemyFactory {
+~ {static} EliteEnemyFactory instance
++ {static} EliteEnemyFactory getInstance()
++ AbstractAircraft createAircraft(int,int,int,int)
+}
+interface edu.hitsz.aircraft.AircraftFactory {
+~ AbstractAircraft createAircraft(int,int,int,int)
+}
+class edu.hitsz.aircraft.EliteEnemy {
+- int bulletPower
+- int direction
+- {static} double probability
++ {static} double getProbability()
++ List<BaseBullet> shoot()
++ List<BaseSupply> produceSupply()
+}
+class edu.hitsz.aircraft.MobEnemyFactory {
+~ {static} MobEnemyFactory instance
++ {static} MobEnemyFactory getInstance()
++ AbstractAircraft createAircraft(int,int,int,int)
+}
+
+
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.aircraft.AbstractAircraft
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.MobEnemy
+edu.hitsz.aircraft.AircraftFactory <|.. edu.hitsz.aircraft.EliteEnemyFactory
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.EliteEnemy
+edu.hitsz.aircraft.AircraftFactory <|.. edu.hitsz.aircraft.MobEnemyFactory
+@enduml

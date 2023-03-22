@@ -1,7 +1,7 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.supply.BaseSupply;
 
 import java.util.LinkedList;
@@ -59,5 +59,3 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     }
 
 }
-
-

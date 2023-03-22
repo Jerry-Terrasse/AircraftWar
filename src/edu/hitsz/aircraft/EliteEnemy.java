@@ -2,19 +2,15 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.supply.BaseSupply;
-import edu.hitsz.supply.BombSupply;
-import edu.hitsz.supply.FireSupply;
-import edu.hitsz.supply.HpSupply;
+import edu.hitsz.supply.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class EliteEnemy extends AbstractAircraft {
-    private int bulletPower = 20;
-    private int direction = 1;
-    static private double probability = 0.2; // 生成概率
+    private final int bulletPower = 20;
+    private final int direction = 1;
+    static private final double probability = 0.2; // 生成概率
 
     static public double getProbability() {
         return probability;
@@ -35,34 +31,31 @@ public class EliteEnemy extends AbstractAircraft {
         res.add(bullet);
         return res;
     }
-
-    static int supply_type = 0; // 按顺序依次切换补给种类
     @Override
     public List<BaseSupply> produceSupply() {
         BaseSupply supply;
         int vx = speedX;
-        if(Math.random() < 0.5) {
+        if (Math.random() < 0.5) {
             vx += 3;
         } else {
             vx -= 3;
         }
-        switch (supply_type % 3) {
-            case 0:
-                supply = new HpSupply(locationX, locationY, vx, speedY);
-                break;
-            case 1:
-                supply = new FireSupply(locationX, locationY, vx, speedY);
-                break;
-            case 2:
-                supply = new BombSupply(locationX, locationY, vx, speedY);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + supply_type % 3);
+
+        double p = Math.random();
+        if (p < 0.3) { // 30%概率掉落火力道具
+            supply = FireSupplyFactory.getInstance().createSupply(locationX, locationY, vx, speedY);
+        } else if(p < 0.6) { // 30%概率掉落加血道具
+            supply = HpSupplyFactory.getInstance().createSupply(locationX, locationY, vx, speedY);
+        } else if(p < 0.9) { // 30%概率掉落炸弹道具
+            supply = BombSupplyFactory.getInstance().createSupply(locationX, locationY, vx, speedY);
+        } else { // 10%概率不掉落道具
+            supply = null;
         }
-        supply_type++;
 
         List<BaseSupply> supplyList = new LinkedList<>();
-        supplyList.add(supply);
+        if(supply != null) { // 若掉落道具
+            supplyList.add(supply);
+        }
         return supplyList;
     }
 }

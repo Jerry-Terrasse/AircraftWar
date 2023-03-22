@@ -1,17 +1,19 @@
 package edu.hitsz.application;
 
 import edu.hitsz.aircraft.*;
-import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.supply.BaseSupply;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 游戏主面板，游戏启动
@@ -38,6 +40,8 @@ public class Game extends JPanel {
     private final List<BaseBullet> enemyBullets;
 
     private final List<BaseSupply> supplies;
+
+    private final AircraftFactory mobEnemyFactory, eliteEnemyFactory;
 
     private final WorldHandle world;
 
@@ -68,15 +72,15 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
 
     public Game() {
-        heroAircraft = new HeroAircraft(
-                Main.WINDOW_WIDTH / 2,
-                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+        heroAircraft = HeroAircraft.getInstance();
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
         supplies = new LinkedList<>();
+
+        mobEnemyFactory = MobEnemyFactory.getInstance();
+        eliteEnemyFactory = EliteEnemyFactory.getInstance();
 
         world = new WorldHandle(heroAircraft, enemyAircrafts, heroBullets, enemyBullets, supplies);
 
@@ -110,22 +114,14 @@ public class Game extends JPanel {
                     // 新敌机产生
                     if (enemyAircrafts.size() < enemyMaxNumber) {
                         AbstractAircraft new_enemy;
+                        int enemy_x = (int)(Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()));
+                        int enemy_y = (int)(Math.random() * Main.WINDOW_HEIGHT * 0.05);
+                        int enemy_vx = 0;
+                        int enemy_vy = 5;
                         if (Math.random() < EliteEnemy.getProbability()) {
-                            new_enemy = new EliteEnemy(
-                                    (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                                    (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                    0,
-                                    5,
-                                    50
-                            );
+                            new_enemy = eliteEnemyFactory.createAircraft(enemy_x, enemy_y, enemy_vx, enemy_vy);
                         } else {
-                            new_enemy = new MobEnemy(
-                                    (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                                    (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                    0,
-                                    5,
-                                    30
-                            );
+                            new_enemy = mobEnemyFactory.createAircraft(enemy_x, enemy_y, enemy_vx, enemy_vy);
                         }
                         enemyAircrafts.add(new_enemy);
                     }
@@ -196,6 +192,7 @@ public class Game extends JPanel {
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
     }
+
 
     private void bulletsMoveAction() {
         for (BaseBullet bullet : heroBullets) {
