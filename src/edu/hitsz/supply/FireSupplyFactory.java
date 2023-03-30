@@ -1,10 +1,10 @@
 package edu.hitsz.supply;
 
 public class FireSupplyFactory implements SupplyFactory{
-    private static final FireSupplyFactory instance = new FireSupplyFactory();
+    private static final FireSupplyFactory INSTANCE = new FireSupplyFactory();
     private FireSupplyFactory() {}
     public static FireSupplyFactory getInstance() {
-        return instance;
+        return INSTANCE;
     }
     @Override
     public BaseSupply createSupply(int x, int y, int vx, int vy) {

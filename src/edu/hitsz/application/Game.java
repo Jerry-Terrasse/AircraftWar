@@ -113,17 +113,23 @@ public class Game extends JPanel {
                     System.out.println(time);
                     // 新敌机产生
                     if (enemyAircrafts.size() < enemyMaxNumber) {
-                        AbstractAircraft new_enemy;
-                        int enemy_x = (int)(Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()));
-                        int enemy_y = (int)(Math.random() * Main.WINDOW_HEIGHT * 0.05);
-                        int enemy_vx = 0;
-                        int enemy_vy = 5;
-                        if (Math.random() < EliteEnemy.getProbability()) {
-                            new_enemy = eliteEnemyFactory.createAircraft(enemy_x, enemy_y, enemy_vx, enemy_vy);
+                        AbstractAircraft newEnemy;
+                        int enemyX = (int)(Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()));
+                        int enemyY = (int)(Math.random() * Main.WINDOW_HEIGHT * 0.05);
+                        int enemyVx = 0;
+                        int enemyVy = 5;
+
+                        // 若满足Boss出现条件，则产生Boss
+                        if(score > BossEnemy.getScoreThreshold() && BossEnemy.getCount() == 0 && Math.random() < BossEnemy.getProbability()) {
+                            enemyY += 5;
+                            enemyVx = (Math.random() < 0.5 ? 1 : -1) * 1;
+                            newEnemy = BossEnemyFactory.getInstance().createAircraft(enemyX, enemyY, enemyVx, 0);
+                        } else if (Math.random() < EliteEnemy.getProbability()) {
+                            newEnemy = eliteEnemyFactory.createAircraft(enemyX, enemyY, enemyVx, enemyVy);
                         } else {
-                            new_enemy = mobEnemyFactory.createAircraft(enemy_x, enemy_y, enemy_vx, enemy_vy);
+                            newEnemy = mobEnemyFactory.createAircraft(enemyX, enemyY, enemyVx, enemyVy);
                         }
-                        enemyAircrafts.add(new_enemy);
+                        enemyAircrafts.add(newEnemy);
                     }
                     // 飞机射出子弹
                     shootAction();

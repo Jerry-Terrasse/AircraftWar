@@ -1,10 +1,10 @@
 package edu.hitsz.aircraft;
 
 public class MobEnemyFactory implements AircraftFactory{
-    final static MobEnemyFactory instance = new MobEnemyFactory();
+    final static MobEnemyFactory INSTANCE = new MobEnemyFactory();
     private MobEnemyFactory() {}
     public static MobEnemyFactory getInstance() {
-        return instance;
+        return INSTANCE;
     }
     @Override
     public AbstractAircraft createAircraft(int x, int y, int vx, int vy) {

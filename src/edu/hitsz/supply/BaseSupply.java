@@ -18,14 +18,14 @@ public abstract class BaseSupply extends AbstractFlyingObject {
         if (speedY > 0 && locationY >= Main.WINDOW_HEIGHT ) {
             // 向下飞行出界
             vanish();
-        } else if (locationY <= 0){
+        } else if (speedY < 0 && locationY <= 0){
             // 向上飞行出界
             vanish();
         }
-        System.out.println(speedY);
+//        System.out.println(speedY);
     }
 
     public void takeEffect(WorldHandle world) {
-        System.out.println(this.getClass().getName() + "active!");
+        System.out.println(this.getClass().getName() + " active!");
     }
 }

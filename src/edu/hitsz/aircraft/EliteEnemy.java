@@ -10,10 +10,14 @@ import java.util.List;
 public class EliteEnemy extends AbstractAircraft {
     private final int bulletPower = 20;
     private final int direction = 1;
-    static private final double probability = 0.2; // 生成概率
+    
+    /**
+     * 生成概率
+     */
+    static private final double PROBABILITY = 0.2;
 
     static public double getProbability() {
-        return probability;
+        return PROBABILITY;
     }
 
     public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
