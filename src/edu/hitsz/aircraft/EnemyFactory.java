@@ -1,6 +1,6 @@
 package edu.hitsz.aircraft;
 
-public interface AircraftFactory {
+public interface EnemyFactory {
     /**
      * 创建飞机
      * @param x x轴坐标
@@ -9,5 +9,5 @@ public interface AircraftFactory {
      * @param vy y轴速度
      * @return 飞机
      */
-    AbstractAircraft createAircraft(int x, int y, int vx, int vy);
+    AbstractEnemy createAircraft(int x, int y, int vx, int vy);
 }

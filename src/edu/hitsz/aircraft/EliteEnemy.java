@@ -7,7 +7,7 @@ import edu.hitsz.supply.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class EliteEnemy extends AbstractAircraft {
+public class EliteEnemy extends AbstractEnemy {
     private final int bulletPower = 20;
     private final int direction = 1;
     

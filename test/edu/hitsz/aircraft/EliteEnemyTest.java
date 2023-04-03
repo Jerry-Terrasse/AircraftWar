@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import java.util.List;
 
 class EliteEnemyTest {
-    private AbstractAircraft eliteEnemy;
+    private AbstractEnemy eliteEnemy;
     @BeforeEach
     void setUp() {
         eliteEnemy = EliteEnemyFactory.getInstance().createAircraft(50, 50, 0, 0);

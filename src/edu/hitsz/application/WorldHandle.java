@@ -1,6 +1,7 @@
 package edu.hitsz.application;
 
 import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.aircraft.AbstractEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.supply.BaseSupply;
@@ -9,14 +10,14 @@ import java.util.List;
 
 public class WorldHandle {
     private final HeroAircraft hero;
-    private final List<AbstractAircraft> enemies;
+    private final List<AbstractEnemy> enemies;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<BaseSupply> supplies;
 
     public WorldHandle(
             HeroAircraft hero,
-            List<AbstractAircraft> enemyAircrafts,
+            List<AbstractEnemy> enemyAircrafts,
             List<BaseBullet> heroBullets,
             List<BaseBullet> enemyBullets,
             List<BaseSupply> supplies

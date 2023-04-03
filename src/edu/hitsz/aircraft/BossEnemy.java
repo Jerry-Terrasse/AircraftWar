@@ -10,7 +10,7 @@ import edu.hitsz.supply.HpSupplyFactory;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BossEnemy extends AbstractAircraft {
+public class BossEnemy extends AbstractEnemy {
     private final int bulletPower = 20;
 
     /**

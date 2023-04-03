@@ -35,13 +35,13 @@ public class Game extends JPanel {
     private int timeInterval = 40;
 
     private final HeroAircraft heroAircraft;
-    private final List<AbstractAircraft> enemyAircrafts;
+    private final List<AbstractEnemy> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
 
     private final List<BaseSupply> supplies;
 
-    private final AircraftFactory mobEnemyFactory, eliteEnemyFactory;
+    private final EnemyFactory mobEnemyFactory, eliteEnemyFactory;
 
     private final WorldHandle world;
 
@@ -113,7 +113,7 @@ public class Game extends JPanel {
                     System.out.println(time);
                     // 新敌机产生
                     if (enemyAircrafts.size() < enemyMaxNumber) {
-                        AbstractAircraft newEnemy;
+                        AbstractEnemy newEnemy;
                         int enemyX = (int)(Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()));
                         int enemyY = (int)(Math.random() * Main.WINDOW_HEIGHT * 0.05);
                         int enemyVx = 0;
@@ -191,7 +191,7 @@ public class Game extends JPanel {
     }
 
     private void shootAction() {
-        for (AbstractAircraft enemy: enemyAircrafts) {
+        for (AbstractEnemy enemy: enemyAircrafts) {
             enemyBullets.addAll(enemy.shoot());
         }
 
@@ -216,7 +216,7 @@ public class Game extends JPanel {
     }
 
     private void aircraftsMoveAction() {
-        for (AbstractAircraft enemyAircraft : enemyAircrafts) {
+        for (AbstractEnemy enemyAircraft : enemyAircrafts) {
             enemyAircraft.forward();
         }
     }
@@ -245,7 +245,7 @@ public class Game extends JPanel {
             if (bullet.notValid()) {
                 continue;
             }
-            for (AbstractAircraft enemyAircraft : enemyAircrafts) {
+            for (AbstractEnemy enemyAircraft : enemyAircrafts) {
                 if (enemyAircraft.notValid()) {
                     // 已被其他子弹击毁的敌机，不再检测
                     // 避免多个子弹重复击毁同一敌机的判定
@@ -266,7 +266,7 @@ public class Game extends JPanel {
         }
 
         // 英雄撞击敌机
-        for (AbstractAircraft enemy: enemyAircrafts) {
+        for (AbstractEnemy enemy: enemyAircrafts) {
             if(enemy.notValid() || heroAircraft.notValid()) {
                 continue;
             }

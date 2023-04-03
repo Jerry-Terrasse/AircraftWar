@@ -58,8 +58,4 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
      */
     public abstract List<BaseBullet> shoot();
 
-    public List<BaseSupply> produceSupply() {
-        return new LinkedList<>();
-    }
-
 }
