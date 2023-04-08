@@ -2,6 +2,8 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
+import edu.hitsz.bullet.EnemyBulletFactory;
+import edu.hitsz.shootStrategy.DisperseStrategy;
 import edu.hitsz.supply.BaseSupply;
 import edu.hitsz.supply.BombSupplyFactory;
 import edu.hitsz.supply.FireSupplyFactory;
@@ -11,7 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BossEnemy extends AbstractEnemy {
-    private final int bulletPower = 20;
 
     /**
      * 生成概率
@@ -41,20 +42,20 @@ public class BossEnemy extends AbstractEnemy {
     }
 
     public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY, hp);
+        super(locationX, locationY, speedX, speedY, hp, new DisperseStrategy(1, new EnemyBulletFactory(20), 3));
         count++;
     }
     
     @Override
-    public List<BaseBullet> shoot() {
+    public List<BaseBullet> shoot_() {
         List<BaseBullet> res = new LinkedList<>();
         int x = this.getLocationX();
         int y = this.getLocationY() + 5;
         int[] speedX = {-3, 0, 3};
         int speedY = 5;
         for(int i = 0; i < 3; i++) {
-            BaseBullet bullet = new EnemyBullet(x, y, getSpeedX() + speedX[i], getSpeedY() + speedY, bulletPower);
-            res.add(bullet);
+//            BaseBullet bullet = new EnemyBullet(x, y, getSpeedX() + speedX[i], getSpeedY() + speedY, bulletPower);
+//            res.add(bullet);
         }
         return res;
     }

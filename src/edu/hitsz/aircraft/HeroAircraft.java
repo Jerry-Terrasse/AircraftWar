@@ -4,6 +4,9 @@ import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.bullet.HeroBulletFactory;
+import edu.hitsz.shootStrategy.DisperseStrategy;
+import edu.hitsz.shootStrategy.StraightShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,12 +23,7 @@ public class HeroAircraft extends AbstractAircraft {
     /**
      * 子弹一次发射数量
      */
-    private int shootNum = 1;
-
-    /**
-     * 子弹伤害
-     */
-    private final int power = 30;
+    private int shootNum = 3;
 
     /**
      * 子弹射击方向 (向下发射：1，向上发射：-1)
@@ -40,7 +38,7 @@ public class HeroAircraft extends AbstractAircraft {
      * @param hp    初始生命值
      */
     private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY, hp);
+        super(locationX, locationY, speedX, speedY, hp, new StraightShootStrategy(-1, new HeroBulletFactory(20)));
     }
 
     @Override
@@ -53,7 +51,7 @@ public class HeroAircraft extends AbstractAircraft {
      * @return 射击出的子弹List
      */
     @Override
-    public List<BaseBullet> shoot() {
+    public List<BaseBullet> shoot_() {
         List<BaseBullet> res = new LinkedList<>();
         int x = this.getLocationX();
         int y = this.getLocationY() + direction * 2;
@@ -63,14 +61,15 @@ public class HeroAircraft extends AbstractAircraft {
         for (int i = 0; i < shootNum; i++) {
             // 子弹发射位置相对飞机位置向前偏移
             // 多个子弹横向分散
-            bullet = new HeroBullet(x + (i * 2 - shootNum + 1) * 10, y, speedX, speedY, power);
-            res.add(bullet);
+//            bullet = new HeroBullet(x + (i * 2 - shootNum + 1) * 10, y, speedX, speedY, power);
+//            res.add(bullet);
         }
         return res;
     }
 
     public void increaseShootNum() {
         shootNum += 1;
+        this.setShootStrategy(new DisperseStrategy(direction, new HeroBulletFactory(20), shootNum));
     }
 
     private static HeroAircraft instance = null;
