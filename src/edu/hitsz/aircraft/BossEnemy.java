@@ -1,7 +1,5 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.EnemyBulletFactory;
 import edu.hitsz.shootStrategy.DisperseStrategy;
 import edu.hitsz.supply.BaseSupply;
@@ -45,20 +43,7 @@ public class BossEnemy extends AbstractEnemy {
         super(locationX, locationY, speedX, speedY, hp, new DisperseStrategy(1, new EnemyBulletFactory(20), 3));
         count++;
     }
-    
-    @Override
-    public List<BaseBullet> shoot_() {
-        List<BaseBullet> res = new LinkedList<>();
-        double x = this.getLocationX();
-        double y = this.getLocationY() + 5;
-        int[] speedX = {-3, 0, 3};
-        int speedY = 5;
-        for(int i = 0; i < 3; i++) {
-//            BaseBullet bullet = new EnemyBullet(x, y, getSpeedX() + speedX[i], getSpeedY() + speedY, bulletPower);
-//            res.add(bullet);
-        }
-        return res;
-    }
+
     @Override
     public List<BaseSupply> produceSupply() {
         BaseSupply supply;

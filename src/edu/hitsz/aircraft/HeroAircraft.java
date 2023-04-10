@@ -2,14 +2,9 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
-import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.bullet.HeroBulletFactory;
 import edu.hitsz.shootStrategy.DisperseStrategy;
 import edu.hitsz.shootStrategy.StraightShootStrategy;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 英雄飞机，游戏玩家操控
@@ -44,27 +39,6 @@ public class HeroAircraft extends AbstractAircraft {
     @Override
     public void forward() {
         // 英雄机由鼠标控制，不通过forward函数移动
-    }
-
-    /**
-     * 通过射击产生子弹
-     * @return 射击出的子弹List
-     */
-    @Override
-    public List<BaseBullet> shoot_() {
-        List<BaseBullet> res = new LinkedList<>();
-        double x = this.getLocationX();
-        double y = this.getLocationY() + direction * 2;
-        int speedX = 0;
-        double speedY = this.getSpeedY() + direction * 5;
-        BaseBullet bullet;
-        for (int i = 0; i < shootNum; i++) {
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-//            bullet = new HeroBullet(x + (i * 2 - shootNum + 1) * 10, y, speedX, speedY, power);
-//            res.add(bullet);
-        }
-        return res;
     }
 
     public void increaseShootNum() {

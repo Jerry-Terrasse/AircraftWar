@@ -1,11 +1,7 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Main;
-import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.shootStrategy.NoShootStrategy;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 普通敌机
@@ -26,11 +22,6 @@ public class MobEnemy extends AbstractEnemy {
         if (locationY >= Main.WINDOW_HEIGHT ) {
             vanish();
         }
-    }
-
-    @Override
-    public List<BaseBullet> shoot_() {
-        return new LinkedList<>();
     }
 
 }

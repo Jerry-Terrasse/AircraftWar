@@ -1,7 +1,5 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.EnemyBulletFactory;
 import edu.hitsz.shootStrategy.StraightShootStrategy;
 import edu.hitsz.supply.*;
@@ -24,18 +22,7 @@ public class EliteEnemy extends AbstractEnemy {
     public EliteEnemy(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new StraightShootStrategy(1, new EnemyBulletFactory(20)));
     }
-    
-    @Override
-    public List<BaseBullet> shoot_() {
-        List<BaseBullet> res = new LinkedList<>();
-        double x = this.getLocationX();
-        double y = this.getLocationY() + direction*2;
-        int speedX = 0;
-        double speedY = this.getSpeedY() + direction*5;
-//        BaseBullet bullet = new EnemyBullet(x, y, speedX, speedY, bulletPower);
-//        res.add(bullet);
-        return res;
-    }
+
     @Override
     public List<BaseSupply> produceSupply() {
         BaseSupply supply;
