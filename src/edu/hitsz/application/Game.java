@@ -3,6 +3,9 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.BaseBullet;
+import edu.hitsz.rank.Record;
+import edu.hitsz.rank.RecordDao;
+import edu.hitsz.rank.RecordDaoImpl;
 import edu.hitsz.supply.BaseSupply;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
@@ -45,6 +48,8 @@ public class Game extends JPanel {
 
     private final WorldHandle world;
 
+    private final RecordDao recordDao;
+
     /**
      * 屏幕中出现的敌机最大数量
      */
@@ -83,6 +88,8 @@ public class Game extends JPanel {
         eliteEnemyFactory = EliteEnemyFactory.getInstance();
 
         world = new WorldHandle(heroAircraft, enemyAircrafts, heroBullets, enemyBullets, supplies);
+
+        recordDao = new RecordDaoImpl("rank_data.dat");
 
         /**
          * Scheduled 线程池，用于定时任务调度
@@ -157,9 +164,7 @@ public class Game extends JPanel {
                 if (heroAircraft.getHp() <= 0) {
                     // 游戏结束
                     executorService.shutdown();
-                    gameOverFlag = true;
-                    System.out.println("Game Over!");
-                    System.exit(0);
+                    gameOver();
                 }
             } catch (Throwable t) {
                 t.printStackTrace();
@@ -173,6 +178,20 @@ public class Game extends JPanel {
          */
         executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
 
+    }
+
+    private void gameOver() {
+        gameOverFlag = true;
+        System.out.println("Game Over!");
+
+        recordDao.doAdd(new Record("user", score, -1));
+        recordDao.save();
+        List<Record> recordList = recordDao.getAll();
+        for(Record record: recordList) {
+            System.out.println(String.format("Id: %d\tName: %s\tScore: %d", record.getRecord_id(), record.getName(), record.getScore()));
+        }
+
+        System.exit(0);
     }
 
     //***********************
