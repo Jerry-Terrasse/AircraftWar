@@ -1,0 +1,42 @@
+@startuml
+abstract class edu.hitsz.aircraft.AbstractAircraft {
+# int maxHp
+# int hp
+# BaseShootStrategy shootStrategy
++ <<Create>> AbstractAircraft(double,double,double,double,int,BaseShootStrategy)
++ void decreaseHp(int)
++ void increaseHp(int)
++ int getHp()
++ int getMaxHp()
++ void setShootStrategy(BaseShootStrategy)
++ List<BaseBullet> shoot()
+}
+abstract class edu.hitsz.shootStrategy.BaseShootStrategy {
+# int direction
+# int velocity
+# BaseBulletFactory bulletFactory
++ <<Create>> BaseShootStrategy(int,BaseBulletFactory)
++ {abstract}List<BaseBullet> shoot(double,double,double,double)
+}
+class edu.hitsz.shootStrategy.StraightShootStrategy {
++ <<Create>> StraightShootStrategy(int,BaseBulletFactory)
++ List<BaseBullet> shoot(double,double,double,double)
+}
+class edu.hitsz.shootStrategy.NoShootStrategy {
++ <<Create>> NoShootStrategy()
++ List<BaseBullet> shoot(double,double,double,double)
+}
+class edu.hitsz.shootStrategy.DisperseStrategy {
+- int shootNum
++ <<Create>> DisperseStrategy(int,BaseBulletFactory,int)
++ List<BaseBullet> shoot(double,double,double,double)
+}
+
+
+edu.hitsz.basic.AbstractFlyingObject <|-- edu.hitsz.aircraft.AbstractAircraft
+edu.hitsz.shootStrategy.BaseShootStrategy <|-- edu.hitsz.shootStrategy.StraightShootStrategy
+edu.hitsz.shootStrategy.BaseShootStrategy <|-- edu.hitsz.shootStrategy.NoShootStrategy
+edu.hitsz.shootStrategy.BaseShootStrategy <|-- edu.hitsz.shootStrategy.DisperseStrategy
+
+edu.hitsz.aircraft.AbstractAircraft o--> edu.hitsz.shootStrategy.BaseShootStrategy
+@enduml

@@ -42,7 +42,12 @@ public class HeroAircraft extends AbstractAircraft {
     }
 
     public void increaseShootNum() {
-        shootNum += 1;
+        if(shootNum == 1) {
+            // 从单发直射升级到三连发散射
+            shootNum = 3;
+        } else {
+            shootNum += 1;
+        }
         this.setShootStrategy(new DisperseStrategy(direction, new HeroBulletFactory(20), shootNum));
     }
 

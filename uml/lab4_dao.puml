@@ -1,0 +1,72 @@
+@startuml
+class edu.hitsz.rank.Record {
+- int record_id
+- String name
+- int score
++ <<Create>> Record(String,int,int)
++ int getRecord_id()
++ String getName()
++ int getScore()
++ void setRecord_id(int)
++ void setName(String)
++ void setScore(int)
+}
+class edu.hitsz.application.Game {
+- int backGroundTop
+- ScheduledExecutorService executorService
+- int timeInterval
+- HeroAircraft heroAircraft
+- List<AbstractEnemy> enemyAircrafts
+- List<BaseBullet> heroBullets
+- List<BaseBullet> enemyBullets
+- List<BaseSupply> supplies
+- EnemyFactory mobEnemyFactory
+- WorldHandle world
+- RecordDao recordDao
+- int enemyMaxNumber
+- int score
+- int time
+- int cycleDuration
+- int cycleTime
+- boolean gameOverFlag
++ <<Create>> Game()
++ void action()
+- void gameOver()
+- boolean timeCountAndNewCycleJudge()
+- void shootAction()
+- void bulletsMoveAction()
+- void suppliesMoveAction()
+- void aircraftsMoveAction()
+- void crashCheckAction()
+- void postProcessAction()
++ void paint(Graphics)
+- void paintImageWithPositionRevised(Graphics,List<? extends AbstractFlyingObject>)
+- void paintScoreAndLife(Graphics)
+}
+class edu.hitsz.rank.RecordDaoImpl {
+~ String filename
+~ List<Record> records
++ <<Create>> RecordDaoImpl(String)
++ void save()
++ Optional<Record> findById(int)
++ List<Record> getAll()
+# int get_new_id()
++ void doAdd(Record)
++ void doDelete(int)
+}
+interface edu.hitsz.rank.RecordDao {
+~ Optional<Record> findById(int)
+~ List<Record> getAll()
+~ void doAdd(Record)
+~ void doDelete(int)
+~ void save()
+}
+
+
+java.io.Serializable <|.. edu.hitsz.rank.Record
+edu.hitsz.application.JPanel <|-- edu.hitsz.application.Game
+edu.hitsz.rank.RecordDao <|.. edu.hitsz.rank.RecordDaoImpl
+
+edu.hitsz.rank.RecordDaoImpl --> edu.hitsz.rank.Record
+edu.hitsz.application.Game --> edu.hitsz.rank.RecordDaoImpl
+@enduml

@@ -43,6 +43,14 @@ class HeroAircraftTest {
         int nowNum = heroAircraft.shoot().size();
         heroAircraft.increaseShootNum();
         int afterNum = heroAircraft.shoot().size();
+        if(nowNum == 1) {
+            assertEquals(3, afterNum);
+        } else {
+            assertEquals(nowNum + 1, afterNum);
+        }
+        nowNum = afterNum;
+        heroAircraft.increaseShootNum();
+        afterNum = heroAircraft.shoot().size();
         assertEquals(nowNum + 1, afterNum);
     }
 
