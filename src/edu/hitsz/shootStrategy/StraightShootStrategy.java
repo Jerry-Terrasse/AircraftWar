@@ -12,10 +12,10 @@ public class StraightShootStrategy extends BaseShootStrategy {
         super(direction, bulletFactory);
     }
     @Override
-    public List<BaseBullet> shoot(int x, int y, int vx, int vy) {
+    public List<BaseBullet> shoot(double x, double y, double vx, double vy) {
         List<BaseBullet> bullets = new LinkedList<>();
         int bulletVx = 0;
-        int bulletVy = vy + direction * velocity;
+        double bulletVy = vy + direction * velocity;
         bullets.add(bulletFactory.createBullet(x, y, bulletVx, bulletVy));
         return bullets;
     }

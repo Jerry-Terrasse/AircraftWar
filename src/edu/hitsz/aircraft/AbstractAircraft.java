@@ -19,7 +19,7 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     protected int maxHp;
     protected int hp;
 
-    public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp, BaseShootStrategy shootStrategy) {
+    public AbstractAircraft(double locationX, double locationY, double speedX, double speedY, int hp, BaseShootStrategy shootStrategy) {
         super(locationX, locationY, speedX, speedY);
         this.hp = hp;
         this.maxHp = hp;

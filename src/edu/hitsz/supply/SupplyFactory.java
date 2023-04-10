@@ -9,5 +9,5 @@ public interface SupplyFactory {
      * @param vy y轴速度
      * @return 补给
      */
-    BaseSupply createSupply(int x, int y, int vx, int vy);
+    BaseSupply createSupply(double x, double y, double vx, double vy);
 }

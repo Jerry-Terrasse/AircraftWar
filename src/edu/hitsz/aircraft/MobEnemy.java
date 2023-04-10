@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MobEnemy extends AbstractEnemy {
 
-    public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public MobEnemy(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new NoShootStrategy());
     }
 

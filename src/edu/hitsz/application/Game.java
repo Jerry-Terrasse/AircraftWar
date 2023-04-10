@@ -121,10 +121,10 @@ public class Game extends JPanel {
                     // 新敌机产生
                     if (enemyAircrafts.size() < enemyMaxNumber) {
                         AbstractEnemy newEnemy;
-                        int enemyX = (int)(Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()));
-                        int enemyY = (int)(Math.random() * Main.WINDOW_HEIGHT * 0.05);
-                        int enemyVx = 0;
-                        int enemyVy = 5;
+                        double enemyX = Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth());
+                        double enemyY = Math.random() * Main.WINDOW_HEIGHT * 0.05;
+                        double enemyVx = 0;
+                        double enemyVy = 5;
 
                         // 若满足Boss出现条件，则产生Boss
                         if(score > BossEnemy.getScoreThreshold() && BossEnemy.getCount() == 0 && Math.random() < BossEnemy.getProbability()) {
@@ -354,8 +354,8 @@ public class Game extends JPanel {
 
         paintImageWithPositionRevised(g, enemyAircrafts);
 
-        g.drawImage(ImageManager.HERO_IMAGE, heroAircraft.getLocationX() - ImageManager.HERO_IMAGE.getWidth() / 2,
-                heroAircraft.getLocationY() - ImageManager.HERO_IMAGE.getHeight() / 2, null);
+        g.drawImage(ImageManager.HERO_IMAGE, (int)(heroAircraft.getLocationX() - ImageManager.HERO_IMAGE.getWidth() / 2),
+                (int)(heroAircraft.getLocationY() - ImageManager.HERO_IMAGE.getHeight() / 2), null);
 
         //绘制得分和生命值
         paintScoreAndLife(g);
@@ -370,8 +370,8 @@ public class Game extends JPanel {
         for (AbstractFlyingObject object : objects) {
             BufferedImage image = object.getImage();
             assert image != null : objects.getClass().getName() + " has no image! ";
-            g.drawImage(image, object.getLocationX() - image.getWidth() / 2,
-                    object.getLocationY() - image.getHeight() / 2, null);
+            g.drawImage(image, (int)(object.getLocationX() - image.getWidth() / 2),
+                    (int)(object.getLocationY() - image.getHeight() / 2), null);
         }
     }
 

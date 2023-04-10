@@ -7,7 +7,7 @@ public class BombSupplyFactory implements SupplyFactory{
         return INSTANCE;
     }
     @Override
-    public BaseSupply createSupply(int x, int y, int vx, int vy) {
+    public BaseSupply createSupply(double x, double y, double vx, double vy) {
         return new BombSupply(x, y, vx, vy);
     }
 }

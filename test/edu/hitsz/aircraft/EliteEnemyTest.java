@@ -56,8 +56,8 @@ class EliteEnemyTest {
 
     @Test
     void crash() {
-        int x = eliteEnemy.getLocationX();
-        int y = eliteEnemy.getLocationY();
+        double x = eliteEnemy.getLocationX();
+        double y = eliteEnemy.getLocationY();
         AbstractAircraft other = EliteEnemyFactory.getInstance().createAircraft(x, y, 0, 0);
         assertTrue(eliteEnemy.crash(other));
     }

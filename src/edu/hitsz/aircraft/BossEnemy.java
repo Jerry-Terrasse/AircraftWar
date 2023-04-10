@@ -41,7 +41,7 @@ public class BossEnemy extends AbstractEnemy {
         return initHp;
     }
 
-    public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public BossEnemy(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new DisperseStrategy(1, new EnemyBulletFactory(20), 3));
         count++;
     }
@@ -49,8 +49,8 @@ public class BossEnemy extends AbstractEnemy {
     @Override
     public List<BaseBullet> shoot_() {
         List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + 5;
+        double x = this.getLocationX();
+        double y = this.getLocationY() + 5;
         int[] speedX = {-3, 0, 3};
         int speedY = 5;
         for(int i = 0; i < 3; i++) {
@@ -62,8 +62,8 @@ public class BossEnemy extends AbstractEnemy {
     @Override
     public List<BaseSupply> produceSupply() {
         BaseSupply supply;
-        int vx = speedX;
-        int vy = speedY + 5;
+        double vx = speedX;
+        double vy = speedY + 5;
         if (Math.random() < 0.5) {
             vx += 3;
         } else {
@@ -73,8 +73,8 @@ public class BossEnemy extends AbstractEnemy {
         List<BaseSupply> supplyList = new LinkedList<>();
         for(int i=0; i<3; ++i) {
             double p = Math.random();
-            int deltaVx = (int) (Math.random() * 5);
-            int deltaVy = (int) (Math.random() * 3);
+            double deltaVx = (Math.random() * 5);
+            double deltaVy = (Math.random() * 3);
             if (p < 1. / 3) { // 30%概率掉落火力道具
                 supply = FireSupplyFactory.getInstance().createSupply(locationX, locationY, vx + deltaVx, vy + deltaVy);
             } else if (p < 2. / 3) { // 30%概率掉落加血道具

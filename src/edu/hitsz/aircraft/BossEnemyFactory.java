@@ -7,7 +7,7 @@ public class BossEnemyFactory implements EnemyFactory {
         return INSTANCE;
     }
     @Override
-    public AbstractEnemy createAircraft(int x, int y, int vx, int vy) {
+    public AbstractEnemy createAircraft(double x, double y, double vx, double vy) {
         return new BossEnemy(x, y, vx, vy, BossEnemy.getInitHp());
     }
 }

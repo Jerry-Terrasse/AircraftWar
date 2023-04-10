@@ -6,7 +6,7 @@ import edu.hitsz.basic.AbstractFlyingObject;
 
 public abstract class BaseSupply extends AbstractFlyingObject {
 
-    public BaseSupply(int locationX, int locationY, int speedX, int speedY) {
+    public BaseSupply(double locationX, double locationY, double speedX, double speedY) {
         super(locationX, locationY, speedX, speedY);
     }
 

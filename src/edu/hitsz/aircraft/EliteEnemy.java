@@ -21,17 +21,17 @@ public class EliteEnemy extends AbstractEnemy {
         return PROBABILITY;
     }
 
-    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public EliteEnemy(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new StraightShootStrategy(1, new EnemyBulletFactory(20)));
     }
     
     @Override
     public List<BaseBullet> shoot_() {
         List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction*2;
+        double x = this.getLocationX();
+        double y = this.getLocationY() + direction*2;
         int speedX = 0;
-        int speedY = this.getSpeedY() + direction*5;
+        double speedY = this.getSpeedY() + direction*5;
 //        BaseBullet bullet = new EnemyBullet(x, y, speedX, speedY, bulletPower);
 //        res.add(bullet);
         return res;
@@ -39,7 +39,7 @@ public class EliteEnemy extends AbstractEnemy {
     @Override
     public List<BaseSupply> produceSupply() {
         BaseSupply supply;
-        int vx = speedX;
+        double vx = speedX;
         if (Math.random() < 0.5) {
             vx += 3;
         } else {

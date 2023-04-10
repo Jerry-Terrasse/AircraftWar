@@ -54,8 +54,8 @@ class HpSupplyTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 3, 10, 9999})
     void forward(int steps) {
-        int x = supply.getLocationX();
-        int y = supply.getLocationY();
+        double x = supply.getLocationX();
+        double y = supply.getLocationY();
         for (int i = 0; i < steps; i++) {
             supply.forward();
             x += vx;

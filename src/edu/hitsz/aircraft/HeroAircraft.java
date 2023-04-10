@@ -23,7 +23,7 @@ public class HeroAircraft extends AbstractAircraft {
     /**
      * 子弹一次发射数量
      */
-    private int shootNum = 3;
+    private int shootNum = 1;
 
     /**
      * 子弹射击方向 (向下发射：1，向上发射：-1)
@@ -37,7 +37,7 @@ public class HeroAircraft extends AbstractAircraft {
      * @param speedY 英雄机射出的子弹的基准速度（英雄机无特定速度）
      * @param hp    初始生命值
      */
-    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
+    private HeroAircraft(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new StraightShootStrategy(-1, new HeroBulletFactory(20)));
     }
 
@@ -53,10 +53,10 @@ public class HeroAircraft extends AbstractAircraft {
     @Override
     public List<BaseBullet> shoot_() {
         List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction * 2;
+        double x = this.getLocationX();
+        double y = this.getLocationY() + direction * 2;
         int speedX = 0;
-        int speedY = this.getSpeedY() + direction * 5;
+        double speedY = this.getSpeedY() + direction * 5;
         BaseBullet bullet;
         for (int i = 0; i < shootNum; i++) {
             // 子弹发射位置相对飞机位置向前偏移

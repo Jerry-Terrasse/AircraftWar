@@ -5,5 +5,5 @@ public abstract class BaseBulletFactory {
     BaseBulletFactory(int power) {
         this.power = power;
     }
-    public abstract BaseBullet createBullet(int locationX, int locationY, int speedX, int speedY);
+    public abstract BaseBullet createBullet(double locationX, double locationY, double speedX, double speedY);
 }

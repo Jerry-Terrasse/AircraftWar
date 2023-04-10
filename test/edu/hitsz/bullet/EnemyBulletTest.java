@@ -27,8 +27,8 @@ class EnemyBulletTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 3, 10, 9999})
     void forward(int steps) {
-        int x = enemyBullet.getLocationX();
-        int y = enemyBullet.getLocationY();
+        double x = enemyBullet.getLocationX();
+        double y = enemyBullet.getLocationY();
         for (int i = 0; i < steps; i++) {
             enemyBullet.forward();
             x += vx;

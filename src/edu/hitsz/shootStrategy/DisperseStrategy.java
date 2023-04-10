@@ -13,16 +13,16 @@ public class DisperseStrategy extends BaseShootStrategy {
         this.shootNum = shootNum;
     }
     @Override
-    public List<BaseBullet> shoot(int x, int y, int vx, int vy) {
+    public List<BaseBullet> shoot(double x, double y, double vx, double vy) {
         List<BaseBullet> bullets = new LinkedList<>();
         if(shootNum % 2 == 0) {
             int sideNum = shootNum / 2;
             double angle = Math.PI / 2 / (shootNum - 1);
             for(int i=1; i <= sideNum; ++i) {
-                int bulletVx = (int) (vx + Math.sin(angle * (i - 0.5)) * velocity);
-                int bulletVy = (int) (vy + direction * Math.cos(angle * (i - 0.5)) * velocity);
+                double bulletVx = vx + Math.sin(angle * (i - 0.5)) * velocity;
+                double bulletVy = vy + direction * Math.cos(angle * (i - 0.5)) * velocity;
                 bullets.add(bulletFactory.createBullet(x, y, bulletVx, bulletVy));
-                bulletVx = (int) (vx - Math.sin(angle * (i - 0.5)) * velocity);
+                bulletVx = vx - Math.sin(angle * (i - 0.5)) * velocity;
                 bullets.add(bulletFactory.createBullet(x, y, bulletVx, bulletVy));
             }
         } else {
@@ -31,10 +31,10 @@ public class DisperseStrategy extends BaseShootStrategy {
             bullets.add(bulletFactory.createBullet(x, y, vx, vy + direction * velocity));
             double angle = Math.PI / 4 / sideNum;
             for(int i = 1; i <= sideNum; i++) {
-                int bulletVx = (int) (vx + Math.sin(angle * i) * velocity);
-                int bulletVy = (int) (vy + direction * Math.cos(angle * i) * velocity);
+                double bulletVx = vx + Math.sin(angle * i) * velocity;
+                double bulletVy = vy + direction * Math.cos(angle * i) * velocity;
                 bullets.add(bulletFactory.createBullet(x, y, bulletVx, bulletVy));
-                bulletVx = (int) (vx - Math.sin(angle * i) * velocity);
+                bulletVx = vx - Math.sin(angle * i) * velocity;
                 bullets.add(bulletFactory.createBullet(x, y, bulletVx, bulletVy));
             }
         }

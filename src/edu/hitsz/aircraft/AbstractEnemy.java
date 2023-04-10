@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractEnemy extends AbstractAircraft {
-    public AbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp, BaseShootStrategy shootStrategy) {
+    public AbstractEnemy(double locationX, double locationY, double speedX, double speedY, int hp, BaseShootStrategy shootStrategy) {
         super(locationX, locationY, speedX, speedY, hp, shootStrategy);
     }
 

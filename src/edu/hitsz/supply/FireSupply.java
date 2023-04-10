@@ -3,7 +3,7 @@ package edu.hitsz.supply;
 import edu.hitsz.application.WorldHandle;
 
 public class FireSupply extends BaseSupply {
-    public FireSupply(int x, int y, int speedX, int speedY) {
+    public FireSupply(double x, double y, double speedX, double speedY) {
         super(x, y, speedX, speedY);
     }
 

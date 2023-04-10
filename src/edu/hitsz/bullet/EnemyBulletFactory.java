@@ -6,7 +6,7 @@ public class EnemyBulletFactory extends BaseBulletFactory {
     }
 
     @Override
-    public BaseBullet createBullet(int locationX, int locationY, int speedX, int speedY) {
+    public BaseBullet createBullet(double locationX, double locationY, double speedX, double speedY) {
         return new EnemyBullet(locationX, locationY, speedX, speedY, power);
     }
 }

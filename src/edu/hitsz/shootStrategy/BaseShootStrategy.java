@@ -14,5 +14,5 @@ public abstract class BaseShootStrategy {
         this.bulletFactory = bulletFactory;
         this.velocity = 3;
     }
-    public abstract List<BaseBullet> shoot(int x, int y, int vx, int vy);
+    public abstract List<BaseBullet> shoot(double x, double y, double vx, double vy);
 }

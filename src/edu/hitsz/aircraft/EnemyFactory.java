@@ -9,5 +9,5 @@ public interface EnemyFactory {
      * @param vy y轴速度
      * @return 飞机
      */
-    AbstractEnemy createAircraft(int x, int y, int vx, int vy);
+    AbstractEnemy createAircraft(double x, double y, double vx, double vy);
 }

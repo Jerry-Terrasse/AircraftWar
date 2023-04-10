@@ -11,7 +11,7 @@ public class NoShootStrategy extends BaseShootStrategy {
     }
 
     @Override
-    public List<BaseBullet> shoot(int x, int y, int vx, int vy) {
+    public List<BaseBullet> shoot(double x, double y, double vx, double vy) {
         return new LinkedList<>();
     }
 }
