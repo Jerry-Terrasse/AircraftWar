@@ -9,4 +9,5 @@ public interface RecordDao {
     void doAdd(Record record);
     void doDelete(int record_id);
     void save();
+    String[][] getTableData();
 }

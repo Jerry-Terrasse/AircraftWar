@@ -75,6 +75,7 @@ public class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+    private boolean withMusic = false;
 
     public Game() {
         heroAircraft = HeroAircraft.getInstance();
@@ -185,13 +186,17 @@ public class Game extends JPanel {
         System.out.println("Game Over!");
 
         recordDao.doAdd(new Record("user", score, -1));
-        recordDao.save();
+
         List<Record> recordList = recordDao.getAll();
         for(Record record: recordList) {
             System.out.println(String.format("Id: %d\tName: %s\tScore: %d", record.getRecord_id(), record.getName(), record.getScore()));
         }
 
-        System.exit(0);
+        RankTable rankTable = new RankTable(recordDao);
+        Main.cardPanel.add(rankTable.getMainPanel(), "rankTable");
+        Main.cardLayout.last(Main.cardPanel);
+
+//        System.exit(0);
     }
 
     //***********************
@@ -385,5 +390,11 @@ public class Game extends JPanel {
         g.drawString("LIFE:" + this.heroAircraft.getHp(), x, y);
     }
 
+    //***********************
+    //      Music 各部分
+    //***********************
 
+    void setWithMusic(boolean withMusic) {
+        this.withMusic = withMusic;
+    }
 }

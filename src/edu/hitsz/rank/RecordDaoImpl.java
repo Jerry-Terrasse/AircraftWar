@@ -1,9 +1,7 @@
 package edu.hitsz.rank;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class RecordDaoImpl implements RecordDao {
     String filename;
@@ -57,10 +55,13 @@ public class RecordDaoImpl implements RecordDao {
     }
 
     protected int get_new_id() {
-        if(this.records.isEmpty()) {
-            return 1;
+        int max_id = 0;
+        for(Record record: this.records) {
+            if(record.getRecord_id() > max_id) {
+                max_id = record.getRecord_id();
+            }
         }
-        return this.records.get(this.records.size()-1).getRecord_id() + 1;
+        return max_id + 1;
     }
 
     @Override
@@ -69,10 +70,29 @@ public class RecordDaoImpl implements RecordDao {
             record.setRecord_id(get_new_id());
         }
         this.records.add(record);
+        save();
     }
 
     @Override
     public void doDelete(int record_id) {
         this.records.removeIf(record -> record.getRecord_id() == record_id);
+        save();
+    }
+
+    /* 为可视化组件提供的方法 */
+    @Override
+    public String[][] getTableData()
+    {
+        this.records.sort((Record a, Record b) -> {
+            if (a.getScore() == b.getScore()) {
+                return 0;
+            }
+            return a.getScore() > b.getScore() ? -1 : 1;
+        });
+        String[][] data = new String[this.records.size()][5];
+        for(int i = 0; i < this.records.size(); i++) {
+            data[i] = new String[]{String.valueOf(i + 1), this.records.get(i).getName(), String.valueOf(this.records.get(i).getScore()), this.records.get(i).getDate().toString(), String.valueOf(this.records.get(i).getRecord_id())};
+        }
+        return data;
     }
 }
