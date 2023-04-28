@@ -1,5 +1,7 @@
 package edu.hitsz.supply;
 
+import edu.hitsz.application.MusicManager;
+import edu.hitsz.application.MusicThread;
 import edu.hitsz.application.WorldHandle;
 
 public class BombSupply extends BaseSupply{
@@ -12,6 +14,10 @@ public class BombSupply extends BaseSupply{
         super.takeEffect(world);
         world.clearEnemies();
         world.clearBullets();
+        if(world.getWithMusic()) {
+            MusicThread musicThread = new MusicThread(MusicManager.getMusicPath("bomb_explosion"), false);
+            musicThread.start();
+        }
 //        world.clearSupplies();
     }
 }

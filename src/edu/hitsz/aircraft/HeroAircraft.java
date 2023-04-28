@@ -24,6 +24,7 @@ public class HeroAircraft extends AbstractAircraft {
      * 子弹射击方向 (向下发射：1，向上发射：-1)
      */
     private final int direction = -1;
+    private long promotionTS = 0;
 
     /**
      * @param locationX 英雄机位置x坐标
@@ -61,5 +62,12 @@ public class HeroAircraft extends AbstractAircraft {
             );
         }
         return instance;
+    }
+
+    public void setPromotionTS(long promotionTS) {
+        this.promotionTS = promotionTS;
+    }
+    public long getPromotionTS() {
+        return promotionTS;
     }
 }

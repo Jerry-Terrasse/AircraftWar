@@ -1,5 +1,7 @@
 package edu.hitsz.supply;
 
+import edu.hitsz.application.MusicManager;
+import edu.hitsz.application.MusicThread;
 import edu.hitsz.application.WorldHandle;
 
 public class HpSupply extends BaseSupply {
@@ -14,5 +16,8 @@ public class HpSupply extends BaseSupply {
     public void takeEffect(WorldHandle world) {
         super.takeEffect(world);
         world.increaseHeroHp(increase);
+
+        MusicThread musicThread = new MusicThread(MusicManager.getMusicPath("get_supply"), false);
+        musicThread.start();
     }
 }

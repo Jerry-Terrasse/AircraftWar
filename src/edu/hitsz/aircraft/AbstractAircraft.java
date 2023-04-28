@@ -1,5 +1,7 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.MusicManager;
+import edu.hitsz.application.MusicThread;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.shootStrategy.BaseShootStrategy;
@@ -51,8 +53,11 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
 
 
     protected BaseShootStrategy shootStrategy;
+    protected final Object shootStrategyLock = new Object();
     public void setShootStrategy(BaseShootStrategy shootStrategy) {
-        this.shootStrategy = shootStrategy;
+        synchronized (shootStrategyLock) {
+            this.shootStrategy = shootStrategy;
+        }
     }
     public List<BaseBullet> shoot() {
         return shootStrategy.shoot(locationX, locationY, speedX, speedY);

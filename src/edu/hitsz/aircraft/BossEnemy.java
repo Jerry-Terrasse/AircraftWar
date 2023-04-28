@@ -20,7 +20,7 @@ public class BossEnemy extends AbstractEnemy {
     /**
      * Boss机初始血量
      */
-    static private int initHp = 1000;
+    static private int initHp = 500;
     /**
      * 场上Boss机总数
      */
@@ -76,8 +76,5 @@ public class BossEnemy extends AbstractEnemy {
     public void vanish() {
         super.vanish();
         count--;
-
-        // Boss机死亡后，下一架Boss机血量增加翻倍
-        initHp *= 2;
     }
 }

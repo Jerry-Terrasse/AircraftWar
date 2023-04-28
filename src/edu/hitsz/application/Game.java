@@ -109,6 +109,10 @@ public class Game extends JPanel {
      * 游戏启动入口，执行游戏逻辑
      */
     public void action() {
+        if(withMusic) {
+            bgmThread.start();
+            bulletMusicThread.start();
+        }
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
@@ -132,6 +136,13 @@ public class Game extends JPanel {
                             enemyY += 5;
                             enemyVx = (Math.random() < 0.5 ? 1 : -1) * 1;
                             newEnemy = BossEnemyFactory.getInstance().createAircraft(enemyX, enemyY, enemyVx, 0);
+
+                            // play boss bgm
+                            if(withMusic) {
+                                bgmThread.setPaused(true);
+                                bossBgmThread = new MusicThread(MusicManager.getMusicPath("bgm_boss"), true);
+                                bossBgmThread.start();
+                            }
                         } else if (Math.random() < EliteEnemy.getProbability()) {
                             newEnemy = eliteEnemyFactory.createAircraft(enemyX, enemyY, enemyVx, enemyVy);
                         } else {
@@ -185,6 +196,34 @@ public class Game extends JPanel {
         gameOverFlag = true;
         System.out.println("Game Over!");
 
+        if(withMusic) {
+            MusicThread musicThread = new MusicThread(MusicManager.getMusicPath("game_over"), false);
+            musicThread.start();
+
+            try {
+                bulletMusicThread.setStopped();
+                bulletMusicThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                bgmThread.setStopped();
+                bgmThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if(bossBgmThread != null) {
+                try {
+                    bossBgmThread.setStopped();
+                    bossBgmThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         recordDao.doAdd(new Record("user", score, -1));
 
         List<Record> recordList = recordDao.getAll();
@@ -215,6 +254,8 @@ public class Game extends JPanel {
     }
 
     private void shootAction() {
+//        MusicThread musicThread = new MusicThread(MusicManager.getMusicPath("bullet"), false);
+//        musicThread.start();
         for (AbstractEnemy enemy: enemyAircrafts) {
             enemyBullets.addAll(enemy.shoot());
         }
@@ -259,6 +300,7 @@ public class Game extends JPanel {
                 continue;
             }
             if(heroAircraft.crash(bullet)) { // crashed
+                playBulletHitMusic();
                 heroAircraft.decreaseHp(bullet.getPower());
                 bullet.vanish();
             }
@@ -276,6 +318,9 @@ public class Game extends JPanel {
                     continue;
                 }
                 if (enemyAircraft.crash(bullet)) {
+                    if(withMusic) {
+                        playBulletHitMusic();
+                    }
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
@@ -284,6 +329,19 @@ public class Game extends JPanel {
                         // 获得分数，产生道具补给
                         score += 10;
                         supplies.addAll(enemyAircraft.produceSupply());
+
+                        if(enemyAircraft instanceof BossEnemy) {
+                            if(withMusic) {
+                                try {
+                                    bossBgmThread.setStopped();
+                                    bossBgmThread.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                bossBgmThread = null;
+                                bgmThread.setPaused(false);
+                            }
+                        }
                     }
                 }
             }
@@ -394,7 +452,18 @@ public class Game extends JPanel {
     //      Music 各部分
     //***********************
 
-    void setWithMusic(boolean withMusic) {
+    public void setWithMusic(boolean withMusic) {
         this.withMusic = withMusic;
+        world.setWithMusic(withMusic);
     }
+    public boolean getWithMusic() {
+        return this.withMusic;
+    }
+    void playBulletHitMusic() {
+        MusicThread musicThread = new MusicThread(MusicManager.getMusicPath("bullet_hit"), false);
+        musicThread.start();
+    }
+    MusicThread bgmThread = new MusicThread(MusicManager.getMusicPath("bgm"), true);
+    MusicThread bulletMusicThread = new MusicThread(MusicManager.getMusicPath("bullet"), true);
+    MusicThread bossBgmThread = null;
 }
