@@ -86,12 +86,12 @@ public class MusicThread extends Thread {
                         break;
                     }
                 }
-                System.out.println(filename + " 111");
+//                System.out.println(filename + " 111");
                 synchronized (pausedLock) {
                     while (paused && !this.isInterrupted()) {
-                        System.out.println(filename + " waiting");
+//                        System.out.println(filename + " waiting");
                         pausedLock.wait();
-                        System.out.println(filename + " waiting end");
+//                        System.out.println(filename + " waiting end");
                     }
                 }
 				//从音频流读取指定的最大数量的数据字节，并将其放入缓冲区中
@@ -126,6 +126,7 @@ public class MusicThread extends Thread {
             this.stopped = true;
             stoppedLock.notifyAll();
         }
+        setPaused(false); // to interrupt the thread if it is in paused state
     }
 
     @Override

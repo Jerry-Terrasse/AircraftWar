@@ -13,6 +13,7 @@ public class MobEnemy extends AbstractEnemy {
 
     public MobEnemy(double locationX, double locationY, double speedX, double speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp, new NoShootStrategy());
+        this.score = 10;
     }
 
     @Override
@@ -23,5 +24,4 @@ public class MobEnemy extends AbstractEnemy {
             vanish();
         }
     }
-
 }

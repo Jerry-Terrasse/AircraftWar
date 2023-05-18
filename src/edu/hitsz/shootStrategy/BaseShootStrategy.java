@@ -12,7 +12,7 @@ public abstract class BaseShootStrategy {
     public BaseShootStrategy(int direction, BaseBulletFactory bulletFactory) {
         this.direction = direction;
         this.bulletFactory = bulletFactory;
-        this.velocity = 3;
+        this.velocity = 5;
     }
     public abstract List<BaseBullet> shoot(double x, double y, double vx, double vy);
 }

@@ -12,11 +12,11 @@ import java.awt.event.MouseEvent;
  * @author hitsz
  */
 public class HeroController {
-    private Game game;
+    private BaseGame game;
     private HeroAircraft heroAircraft;
     private MouseAdapter mouseAdapter;
 
-    public HeroController(Game game, HeroAircraft heroAircraft){
+    public HeroController(BaseGame game, HeroAircraft heroAircraft){
         this.game = game;
         this.heroAircraft = heroAircraft;
 
@@ -26,8 +26,12 @@ public class HeroController {
                 super.mouseDragged(e);
                 int x = e.getX();
                 int y = e.getY();
-                if ( x<0 || x>Main.WINDOW_WIDTH || y<0 || y>Main.WINDOW_HEIGHT){
+                if ( x<30 || x>Main.WINDOW_WIDTH-30 || y<30 || y>Main.WINDOW_HEIGHT-30){
                     // 防止超出边界
+                    return;
+                }
+                // 防止移动过远
+                if (Math.abs(x - heroAircraft.getLocationX()) > 20 || Math.abs(y - heroAircraft.getLocationY()) > 30) {
                     return;
                 }
                 heroAircraft.setLocation(x, y);

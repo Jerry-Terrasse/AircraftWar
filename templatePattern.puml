@@ -1,0 +1,71 @@
+@startuml
+class edu.hitsz.application.HardGame {
++ <<Create>> HardGame()
+# void BossPromote()
+# void ElitePromote()
+}
+class edu.hitsz.application.EasyGame {
++ <<Create>> EasyGame()
+}
+class edu.hitsz.application.BaseGame {
+# int difficulty
+# int EnemyHpFactor
+# double EnemySpeedFactor
+# int BossScoreThresh
+# double EliteEnemyProbability
+# double BossEnemyProbability
+# int eliteLastPromotionTime
+# int backGroundTop
+# BufferedImage backGroundImage
+# ScheduledExecutorService executorService
+# int timeInterval
+# HeroAircraft heroAircraft
+# List<AbstractEnemy> enemyAircrafts
+# List<BaseBullet> heroBullets
+# List<BaseBullet> enemyBullets
+# List<BaseSupply> supplies
+# List<BaseSupply> suppliesToBeAdd
+# EnemyFactory mobEnemyFactory
+# WorldHandle world
+# RecordDao recordDao
+# int enemyMaxNumber
+# int score
+# int time
+# int cycleDuration
+# int cycleTime
+# boolean gameOverFlag
+# boolean withMusic
+~ MusicThread bgmThread
+~ MusicThread bulletMusicThread
+~ MusicThread bossBgmThread
++ <<Create>> BaseGame()
+# void BossPromote()
+# void ElitePromote()
++ void action()
+# void gameOver()
+# boolean timeCountAndNewCycleJudge()
+# void shootAction()
+# void bulletsMoveAction()
+# void suppliesMoveAction()
+# void aircraftsMoveAction()
+# void crashCheckAction()
+# void postProcessAction()
++ void onEnemyVanish(int,boolean,List<BaseSupply>)
++ void paint(Graphics)
+# void paintImageWithPositionRevised(Graphics,List<? extends AbstractFlyingObject>)
+# void paintScoreAndLife(Graphics)
++ void setWithMusic(boolean)
++ boolean getWithMusic()
+~ void playBulletHitMusic()
+}
+class edu.hitsz.application.NormalGame {
++ <<Create>> NormalGame()
+}
+
+
+edu.hitsz.application.BaseGame <|-- edu.hitsz.application.HardGame
+edu.hitsz.application.BaseGame <|-- edu.hitsz.application.EasyGame
+edu.hitsz.application.EnemyVanishListener <|.. edu.hitsz.application.BaseGame
+edu.hitsz.application.JPanel <|-- edu.hitsz.application.BaseGame
+edu.hitsz.application.BaseGame <|-- edu.hitsz.application.NormalGame
+@enduml

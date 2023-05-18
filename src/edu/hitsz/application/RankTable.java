@@ -18,9 +18,11 @@ public class RankTable {
     private JButton deleteButton;
     private JLabel hardLevelLabel;
     private RecordDao recordDao;
+    private int difficulty;
 
-    public RankTable(RecordDao recordDao) {
+    public RankTable(RecordDao recordDao, int difficulty) {
         this.recordDao = recordDao;
+        this.difficulty = difficulty;
         String[] columnNames = Record.getColumnNames();
         String[][] rowData = recordDao.getTableData();
         DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames) {
@@ -32,6 +34,21 @@ public class RankTable {
         rankListTable.setModel(tableModel);
 
         rankListScroll.setViewportView(rankListTable);
+
+        switch (difficulty) {
+            case 1:
+                hardLevelLabel.setText("难度： 简单");
+                break;
+            case 2:
+                hardLevelLabel.setText("难度： 中等");
+                break;
+            case 3:
+                hardLevelLabel.setText("难度： 困难");
+                break;
+            default:
+                System.out.println("unknown difficulty");
+                break;
+        }
 
         deleteButton.addActionListener((ActionEvent e) -> {
             int row = rankListTable.getSelectedRow();

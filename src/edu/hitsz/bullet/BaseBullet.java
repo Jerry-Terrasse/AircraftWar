@@ -3,6 +3,8 @@ package edu.hitsz.bullet;
 import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 
+import java.util.Random;
+
 /**
  * 子弹类。
  * 也可以考虑不同类型的子弹

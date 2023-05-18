@@ -1,0 +1,42 @@
+@startuml
+class edu.hitsz.supply.BombSupplyFactory {
+- {static} BombSupplyFactory INSTANCE
++ {static} BombSupplyFactory getInstance()
++ BaseSupply createSupply(double,double,double,double)
+}
+interface edu.hitsz.supply.BombListener {
+~ void onBomb()
+~ boolean notValid()
+}
+abstract class edu.hitsz.aircraft.AbstractEnemy {
+# List<EnemyVanishListener> listeners
+# int score
+# List<BaseSupply> produceSupply()
++ void addEnemyVanishListener(EnemyVanishListener)
++ void removeEnemyVanishListener(EnemyVanishListener)
++ void vanish()
+# int getScore()
+# boolean isBoss()
++ void onBomb()
+}
+class edu.hitsz.bullet.EnemyBulletFactory {
++ BaseBullet createBullet(double,double,double,double)
+}
+class edu.hitsz.bullet.EnemyBullet {
++ void onBomb()
+}
+class edu.hitsz.supply.BombSupply {
++ {static} List<BombListener> listeners
++ void takeEffect(WorldHandle)
++ {static} void addBombListener(BombListener)
+}
+
+
+edu.hitsz.supply.SupplyFactory <|.. edu.hitsz.supply.BombSupplyFactory
+edu.hitsz.supply.BombListener <|.. edu.hitsz.aircraft.AbstractEnemy
+edu.hitsz.aircraft.AbstractAircraft <|-- edu.hitsz.aircraft.AbstractEnemy
+edu.hitsz.bullet.BaseBulletFactory <|-- edu.hitsz.bullet.EnemyBulletFactory
+edu.hitsz.supply.BombListener <|.. edu.hitsz.bullet.EnemyBullet
+edu.hitsz.bullet.BaseBullet <|-- edu.hitsz.bullet.EnemyBullet
+edu.hitsz.supply.BaseSupply <|-- edu.hitsz.supply.BombSupply
+@enduml
