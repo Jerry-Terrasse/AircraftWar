@@ -140,7 +140,7 @@ public class BaseGame extends JPanel implements EnemyVanishListener {
 
                 // 周期性执行（控制频率）
                 if (timeCountAndNewCycleJudge()) {
-                    System.out.println(time);
+//                    System.out.println(time);
                     // 新敌机产生
                     if (enemyAircrafts.size() < enemyMaxNumber) {
                         AbstractEnemy newEnemy;
@@ -164,11 +164,11 @@ public class BaseGame extends JPanel implements EnemyVanishListener {
                                 bossBgmThread.start();
                             }
                         } else if (Math.random() < this.EliteEnemyProbability) {
-                            System.out.println(Math.random());
-                            System.out.println("111" + this.EliteEnemyProbability);
+//                            System.out.println(Math.random());
+//                            System.out.println("111" + this.EliteEnemyProbability);
                             newEnemy = eliteEnemyFactory.createAircraft(enemyX, enemyY, enemyVx, enemyVy);
                         } else {
-                            System.out.println("MobMob");
+//                            System.out.println("MobMob");
                             newEnemy = mobEnemyFactory.createAircraft(enemyX, enemyY, enemyVx, enemyVy);
                         }
                         newEnemy.addEnemyVanishListener(this);
